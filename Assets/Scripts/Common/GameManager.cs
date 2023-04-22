@@ -1,20 +1,18 @@
-﻿using RineaR.MadeHighlow.Network;
+﻿using RineaR.Shadow.UI;
 using UnityEngine;
 using Zenject;
 
-namespace RineaR.MadeHighlow.Common
+namespace RineaR.Shadow.Common
 {
     public class GameManager : MonoBehaviour
     {
-        [Inject] private RemoteManager RemoteManager { get; set; }
-        [Inject] private MatchingWindow MatchingWindow { get; set; }
+        [Inject] private MatchingView MatchingView { get; set; }
+        [Inject] private UnitSelectView UnitSelectView { get; set; }
 
         private void Start()
         {
-            RemoteManager.Initialize();
-
-            MatchingWindow.Initialize();
-            MatchingWindow.Open();
+            MatchingView.Initialize();
+            MatchingView.Open();
         }
     }
 }

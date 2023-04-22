@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 812397265914783555}
   - component: {fileID: -1551169125751902273}
   m_Layer: 0
-  m_Name: Client
+  m_Name: Session Client
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

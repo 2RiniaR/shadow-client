@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8325438445884655919}
   - component: {fileID: 8325438445884655904}
   m_Layer: 0
-  m_Name: Room
+  m_Name: Session Server
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,3 +70,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  clientPrefab: {fileID: -1551169125751902273, guid: 1c79dbe399a4bd34dac104cd8eec80e1, type: 3}
+  _IsMatching: 0

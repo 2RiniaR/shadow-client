@@ -1,54 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using Fusion;
 using Fusion.Sockets;
-using RineaR.MadeHighlow.Network;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
 
-namespace RineaR.MadeHighlow.Common
+namespace RineaR.Shadow.Network
 {
-    public class RemoteManager : MonoBehaviour, INetworkRunnerCallbacks
+    /// <summary>
+    ///     アプリケーションがホストの時のみ稼働し、セッション内の環境構築を行う。
+    /// </summary>
+    [RequireComponent(typeof(NetworkRunner))]
+    public class SessionBuilder : MonoBehaviour, INetworkRunnerCallbacks
     {
-        private const string DefaultRoomName = "Default";
+        [SerializeField]
+        private SessionServer serverPrefab;
 
         [SerializeField]
-        private Client clientPrefab;
+        private SessionClient clientPrefab;
 
-        private readonly Dictionary<PlayerRef, Client> _clients = new();
-
-        [Inject] private NetworkRunner NetworkRunner { get; set; }
-
-        private void OnDestroy()
-        {
-            NetworkRunner.RemoveCallbacks(this);
-        }
+        private readonly Dictionary<PlayerRef, SessionClient> _clients = new();
+        private SessionServer _server;
 
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
             if (!runner.IsServer) return;
 
-            var client = runner.Spawn(clientPrefab, inputAuthority: player);
-            client.ClientNumber = _clients.Count;
-            _clients.Add(player, client);
-
-            runner.SetPlayerObject(player, client.Object);
+            if (!_server) SpawnServer(runner);
+            SpawnClient(runner, player);
         }
 
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+        {
+            DespawnClient(runner, player);
+        }
+
+        private void DespawnClient(NetworkRunner runner, PlayerRef player)
         {
             if (!_clients.TryGetValue(player, out var leftClient)) return;
 
             foreach (var (_, client) in _clients)
             {
-                if (client.ClientNumber > leftClient.ClientNumber) client.ClientNumber--;
+                if (client.Number > leftClient.Number) client.Number--;
             }
 
             runner.Despawn(leftClient.Object);
             _clients.Remove(player);
         }
+
+        private void SpawnServer(NetworkRunner runner)
+        {
+            _server = runner.Spawn(serverPrefab);
+        }
+
+        private void SpawnClient(NetworkRunner runner, PlayerRef player)
+        {
+            var client = runner.Spawn(clientPrefab, inputAuthority: player);
+            client.Number = _clients.Count;
+            client.Server = _server;
+            _server.Clients.Set(_clients.Count, client);
+            _clients.Add(player, client);
+
+            runner.SetPlayerObject(player, client.Object);
+        }
+
+        #region 不要なコールバックメソッド
 
         public void OnInput(NetworkRunner runner, NetworkInput input)
         {
@@ -65,6 +80,7 @@ namespace RineaR.MadeHighlow.Common
             // do nothing
         }
 
+        // ReSharper disable once Unity.IncorrectMethodSignature
         public void OnConnectedToServer(NetworkRunner runner)
         {
             // do nothing
@@ -121,20 +137,6 @@ namespace RineaR.MadeHighlow.Common
             // do nothing
         }
 
-        public void Initialize()
-        {
-            NetworkRunner.AddCallbacks(this);
-        }
-
-        public async UniTask<StartGameResult> Join()
-        {
-            return await NetworkRunner.StartGame(new StartGameArgs
-            {
-                GameMode = GameMode.AutoHostOrClient,
-                SessionName = DefaultRoomName,
-                Scene = SceneManager.GetActiveScene().buildIndex,
-                SceneManager = NetworkRunner.GetComponent<NetworkSceneManagerDefault>(),
-            });
-        }
+        #endregion
     }
 }

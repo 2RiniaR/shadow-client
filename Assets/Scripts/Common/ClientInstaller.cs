@@ -1,26 +1,31 @@
-﻿using Fusion;
-using RineaR.MadeHighlow.Network;
+﻿using RineaR.Shadow.Master;
+using RineaR.Shadow.Network;
+using RineaR.Shadow.UI;
 using UnityEngine;
 using Zenject;
 
-namespace RineaR.MadeHighlow.Common
+namespace RineaR.Shadow.Common
 {
     public class ClientInstaller : MonoInstaller
     {
         [SerializeField]
-        private NetworkRunner networkRunner;
+        private MasterSet masterSet;
 
         [SerializeField]
-        private RemoteManager remoteManager;
+        private MatchingView matchingView;
 
         [SerializeField]
-        private MatchingWindow matchingWindow;
+        private UnitSelectView unitSelectView;
+
+        [SerializeField]
+        private SessionConnector sessionConnector;
 
         public override void InstallBindings()
         {
-            Container.Bind<NetworkRunner>().FromInstance(networkRunner).AsSingle();
-            Container.Bind<RemoteManager>().FromInstance(remoteManager).AsSingle();
-            Container.Bind<MatchingWindow>().FromInstance(matchingWindow).AsSingle();
+            Container.Bind<IMasterRepository>().FromInstance(masterSet).AsSingle();
+            Container.Bind<SessionConnector>().FromInstance(sessionConnector).AsSingle();
+            Container.Bind<MatchingView>().FromInstance(matchingView).AsSingle();
+            Container.Bind<UnitSelectView>().FromInstance(unitSelectView).AsSingle();
         }
     }
 }
