@@ -1,21 +1,14 @@
 ﻿using RineaR.Shadow.Master;
 using RineaR.Shadow.Network;
-using RineaR.Shadow.UI;
 using UnityEngine;
 using Zenject;
 
-namespace RineaR.Shadow.Common
+namespace RineaR.Shadow
 {
     public class ClientInstaller : MonoInstaller
     {
         [SerializeField]
         private MasterSet masterSet;
-
-        [SerializeField]
-        private MatchingView matchingView;
-
-        [SerializeField]
-        private UnitSelectView unitSelectView;
 
         [SerializeField]
         private SessionConnector sessionConnector;
@@ -24,8 +17,6 @@ namespace RineaR.Shadow.Common
         {
             Container.Bind<IMasterRepository>().FromInstance(masterSet).AsSingle();
             Container.Bind<SessionConnector>().FromInstance(sessionConnector).AsSingle();
-            Container.Bind<MatchingView>().FromInstance(matchingView).AsSingle();
-            Container.Bind<UnitSelectView>().FromInstance(unitSelectView).AsSingle();
         }
     }
 }

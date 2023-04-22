@@ -15,18 +15,21 @@ namespace RineaR.Shadow.UI
     public class MatchingView : MonoBehaviour
     {
         [SerializeField]
-        private Button join;
-
-        [SerializeField]
         private List<TMP_Text> players;
 
         [SerializeField]
         private Button submit;
 
         private CancellationTokenSource _cts;
-        private TMP_Text _joinLabel;
+
+        public bool IsOpened { get; private set; }
 
         [Inject] private SessionConnector Connector { get; set; }
+
+        private void Awake()
+        {
+            IsOpened = false;
+        }
 
         public void OnDestroy()
         {
@@ -36,28 +39,27 @@ namespace RineaR.Shadow.UI
         public void Initialize()
         {
             _cts = new CancellationTokenSource();
-
-            join.OnClickAsObservable().Subscribe(_ => Connector.JoinSession().Forget()).AddTo(this);
-            _joinLabel = join.GetComponentInChildren<TMP_Text>();
-
             submit.OnClickAsObservable().Subscribe(_ => Submit()).AddTo(this);
-
             LoopRefresh(_cts.Token).Forget();
         }
 
         public void Open()
         {
+            if (IsOpened) return;
             gameObject.SetActive(true);
+            IsOpened = true;
         }
 
         public void Close()
         {
+            if (!IsOpened) return;
             gameObject.SetActive(false);
+            IsOpened = false;
         }
 
         private void Submit()
         {
-            if (Connector.Client != null) Connector.Client.Server.SubmitPlayers();
+            if (Connector.Client != null) Connector.Client.Server.RPC_SubmitPlayers();
         }
 
         private async UniTask LoopRefresh(CancellationToken token = default)
@@ -71,9 +73,6 @@ namespace RineaR.Shadow.UI
 
         public void Refresh()
         {
-            join.interactable = !Connector.Client;
-            _joinLabel.text = Connector.Client ? "Joined" : "Join the room";
-
             if (Connector.Client)
             {
                 for (var i = 0; i < Mathf.Max(4, players.Count); i++)

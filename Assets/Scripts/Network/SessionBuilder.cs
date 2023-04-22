@@ -50,6 +50,7 @@ namespace RineaR.Shadow.Network
         private void SpawnServer(NetworkRunner runner)
         {
             _server = runner.Spawn(serverPrefab);
+            _server.RPC_StartMatching();
         }
 
         private void SpawnClient(NetworkRunner runner, PlayerRef player)
