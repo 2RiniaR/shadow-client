@@ -8,6 +8,7 @@ namespace RineaR.Shadow.Master
     {
         public int id;
         public string name;
+        public string description;
         public int hp;
         public Sprite faceImage;
     }

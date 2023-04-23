@@ -52,7 +52,8 @@ namespace RineaR.Shadow.UI
                         onLoad: x => { x.page.GetComponent<MatchingView>()?.Initialize(); });
                     break;
                 case Phase.UnitSelect:
-                    _pageContainer.Push("Unit Select Page", true, false);
+                    _pageContainer.Push("Unit Select Page", true, false,
+                        onLoad: x => { x.page.GetComponent<UnitSelectView>()?.Initialize(); });
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(phase), phase, null);

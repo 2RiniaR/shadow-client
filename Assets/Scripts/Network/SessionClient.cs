@@ -1,4 +1,5 @@
 ﻿using Fusion;
+using UnityEngine;
 
 namespace RineaR.Shadow.Network
 {
@@ -17,6 +18,7 @@ namespace RineaR.Shadow.Network
         public void RPC_SubmitUnits(int[] unitsID)
         {
             UnitsID.CopyFrom(unitsID, 0, 4);
+            Debug.Log($"Units: {string.Join(",", UnitsID)}");
         }
     }
 }

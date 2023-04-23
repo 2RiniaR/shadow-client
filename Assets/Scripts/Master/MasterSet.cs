@@ -8,6 +8,7 @@ namespace RineaR.Shadow.Master
     public class MasterSet : ScriptableObject, IMasterRepository
     {
         public List<UnitSetting> units;
+        public List<CardSetting> cards;
 
         public void Fetch()
         {
@@ -23,6 +24,17 @@ namespace RineaR.Shadow.Master
         public UnitSetting GetUnitByID(int id)
         {
             return units.Find(unit => unit.id == id);
+        }
+
+        public CardSetting[] GetCards()
+        {
+            return cards.ToArray();
+        }
+
+        [CanBeNull]
+        public CardSetting GetCardByID(int id)
+        {
+            return cards.Find(card => card.id == id);
         }
     }
 }
