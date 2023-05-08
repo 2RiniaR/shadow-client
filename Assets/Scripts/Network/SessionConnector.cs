@@ -12,7 +12,7 @@ namespace RineaR.Shadow.Network
     [RequireComponent(typeof(NetworkRunner))]
     public class SessionConnector : MonoBehaviour
     {
-        public const string DefaultRoomName = "Default";
+        private const string DefaultRoomName = "Default";
 
         private NetworkRunner _localRunner;
 

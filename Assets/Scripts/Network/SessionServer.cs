@@ -1,30 +1,48 @@
 ﻿using System.Linq;
 using Fusion;
+using RineaR.Shadow.Battles;
+using RineaR.Shadow.Master;
+using Zenject;
 
 namespace RineaR.Shadow.Network
 {
+    /// <summary>
+    ///     セッションのサーバー。
+    ///     セッション中に1つしか存在せず、セッションへの接続中のみ存在する。
+    /// </summary>
     public class SessionServer : NetworkBehaviour
     {
-        public const int MinGamePlayers = 2;
+        /// <summary>
+        ///     現在のフェーズ。
+        /// </summary>
+        [Networked]
+        public SessionPhaseName PhaseName { get; set; } = SessionPhaseName.Initial;
 
-        [Networked] public SessionPhase Phase { get; set; }
+        /// <summary>
+        ///     クライアントへの参照。
+        /// </summary>
+        [Networked]
+        [Capacity(20)]
+        public NetworkArray<SessionClient> Clients => default;
 
-        [Networked] [Capacity(20)] public NetworkArray<SessionClient> Clients => default;
+        /// <summary>
+        ///     現在行われている対戦。
+        /// </summary>
+        [Networked]
+        public Battle Battle { get; set; }
 
-        public bool CanStartGame => Runner.ActivePlayers.Count() >= MinGamePlayers;
+        /// <summary>
+        ///     対戦用の設定。
+        /// </summary>
+        [Networked]
+        public ServerBattleSettings BattleSettings { get; set; }
 
-        [Rpc(RpcSources.All, RpcTargets.All)]
-        public void RPC_StartMatching()
+        [Inject] public IMasterRepository Master { get; }
+        [Inject] public AppSettings AppSettings { get; }
+
+        public bool CanStartGame()
         {
-            if (!Runner.IsServer) return;
-            Phase = SessionPhase.Matching;
-        }
-
-        [Rpc(RpcSources.All, RpcTargets.All)]
-        public void RPC_SubmitPlayers()
-        {
-            if (!CanStartGame) return;
-            Phase = SessionPhase.SelectingUnit;
+            return Runner.ActivePlayers.Count() >= Battle.MinGamePlayers;
         }
     }
 }

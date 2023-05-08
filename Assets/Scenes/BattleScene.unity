@@ -446,10 +446,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1100542313}
+  - component: {fileID: 1100542316}
   - component: {fileID: 1100542315}
   - component: {fileID: 1100542314}
   m_Layer: 0
-  m_Name: Client Installer
+  m_Name: App
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,7 +484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   masterSet: {fileID: 11400000, guid: 0ddfd6b8c19fa8e4d9ebd8729814c145, type: 2}
+  appSettings: {fileID: 11400000, guid: 295603fd4d3d45049baa8f17f902cc45, type: 2}
   sessionConnector: {fileID: 1185050654}
+  pageContainer: {fileID: 1984225596}
 --- !u!114 &1100542315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,6 +519,18 @@ MonoBehaviour:
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
   _parentContractNames: []
+--- !u!114 &1100542316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100542312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2909709600444bf3a3f87e349bf88144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1185050650
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,7 +632,6 @@ GameObject:
   - component: {fileID: 1984225592}
   - component: {fileID: 1984225597}
   - component: {fileID: 1984225596}
-  - component: {fileID: 1984225598}
   m_Layer: 5
   m_Name: Page Container
   m_TagString: Untagged
@@ -733,15 +747,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
---- !u!114 &1984225598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984225591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2909709600444bf3a3f87e349bf88144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
