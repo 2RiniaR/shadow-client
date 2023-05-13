@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -11,6 +12,12 @@ namespace RineaR.Shadow.Master
         public List<FigureSetting> figures;
         public List<CardSetting> cards;
         public List<FieldSetting> fields;
+
+        public UniTask FetchAsync(CancellationToken cancellationToken = default)
+        {
+            // do nothing
+            return UniTask.CompletedTask;
+        }
 
         public IEnumerable<FigureSetting> GetFigures()
         {
@@ -32,12 +39,6 @@ namespace RineaR.Shadow.Master
         public FieldSetting GetFieldByID(int id)
         {
             return fields.Find(field => field.id == id);
-        }
-
-        public UniTask Fetch()
-        {
-            // do nothing
-            return UniTask.CompletedTask;
         }
 
         public IEnumerable<CardSetting> GetCards()

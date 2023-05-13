@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 
 namespace RineaR.Shadow.Master
 {
     public interface IMasterRepository
     {
-        UniTask Fetch();
+        UniTask FetchAsync(CancellationToken cancellationToken = default);
         IEnumerable<FigureSetting> GetFigures();
         FigureSetting GetFigureByID(int id);
         IEnumerable<CardSetting> GetCards();

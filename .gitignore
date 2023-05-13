@@ -151,3 +151,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# Credentials
+/[Aa]ssets/[Ss]ecrets/*
+
