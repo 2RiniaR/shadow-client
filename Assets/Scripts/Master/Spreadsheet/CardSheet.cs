@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using RineaR.Shadow.Master;
 
-namespace RineaR.Shadow.Spreadsheet
+namespace RineaR.Shadow.Master.Spreadsheet
 {
     /// <summary>
     ///     Google Spreadsheetからデータを取得する。
     /// </summary>
-    public class FigureSheetReader
+    public class CardSheet
     {
-        public FigureSheetReader(GoogleService googleService)
+        public CardSheet(GoogleService googleService)
         {
             GoogleService = googleService;
         }
@@ -21,7 +19,7 @@ namespace RineaR.Shadow.Spreadsheet
 
         public string SheetName { get; set; }
 
-        public async UniTask<IEnumerable<FigureSetting>> ReadAsync(CancellationToken cancellationToken = default)
+        public async UniTask<IEnumerable<CardSetting>> ReadAsync(CancellationToken cancellationToken = default)
         {
             var sheetsService = await GoogleService.GetSheetsServiceAsync(cancellationToken);
             var range = $"{SheetName}!A2:E";
@@ -32,14 +30,12 @@ namespace RineaR.Shadow.Spreadsheet
             return rows.Select(InterpretRowToItem);
         }
 
-        private static FigureSetting InterpretRowToItem(IList<object> columns)
+        private static CardSetting InterpretRowToItem(IList<object> columns)
         {
-            return new FigureSetting
+            return new CardSetting
             {
-                id = int.Parse(columns[0] as string ?? string.Empty),
-                name = columns[1] as string,
-                hp = int.Parse(columns[3] as string ?? string.Empty),
-                description = columns[4] as string,
+                ID = columns[0] as string,
+                Name = columns[1] as string,
             };
         }
     }

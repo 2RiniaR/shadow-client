@@ -26,7 +26,7 @@ namespace RineaR.Shadow.Phases
             Battle = _networkRunner.Spawn(AppSettings.BattlePrefab);
 
             // フィールドを生成する
-            var fieldPrefab = Master.GetFieldByID(server.BattleSettings.FieldID).field;
+            var fieldPrefab = Master.GetFieldByID(server.BattleSettings.FieldID).Field;
             var field = _networkRunner.Spawn(fieldPrefab);
             Battle.Use(field);
 

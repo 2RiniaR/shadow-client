@@ -25,20 +25,20 @@ namespace RineaR.Shadow.Master
         }
 
         [CanBeNull]
-        public FigureSetting GetFigureByID(int id)
+        public FigureSetting GetFigureByID(string id)
         {
-            return figures.Find(figure => figure.id == id);
+            return figures.Find(figure => figure.ID == id);
         }
 
         [CanBeNull]
-        public CardSetting GetCardByID(int id)
+        public CardSetting GetCardByID(string id)
         {
-            return cards.Find(card => card.id == id);
+            return cards.Find(card => card.ID == id);
         }
 
-        public FieldSetting GetFieldByID(int id)
+        public FieldSetting GetFieldByID(string id)
         {
-            return fields.Find(field => field.id == id);
+            return fields.Find(field => field.ID == id);
         }
 
         public IEnumerable<CardSetting> GetCards()

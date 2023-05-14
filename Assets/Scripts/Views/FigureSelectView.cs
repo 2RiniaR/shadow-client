@@ -129,7 +129,7 @@ namespace RineaR.Shadow.Views
                 if (image)
                 {
                     image.sprite = i < System.Entries.Count
-                        ? System.Entries[i].faceImage
+                        ? System.Entries[i].FaceImage
                         : entryDefaultImage;
                 }
             }
@@ -144,7 +144,7 @@ namespace RineaR.Shadow.Views
                 if (image)
                 {
                     image.sprite = i < System.Selections.Count && System.Selections[i] != null
-                        ? System.Selections[i].faceImage
+                        ? System.Selections[i].FaceImage
                         : slotDefaultImage;
                 }
             }

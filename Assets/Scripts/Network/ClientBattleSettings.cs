@@ -16,9 +16,9 @@ namespace RineaR.Shadow.Network
         /// </summary>
         [Networked]
         [Capacity(4)]
-        public NetworkArray<int> FiguresID => default;
+        public NetworkArray<string> FiguresID => default;
 
-        public void SetFigures(int[] figuresID)
+        public void SetFigures(string[] figuresID)
         {
             FiguresID.CopyFrom(figuresID, 0, 4);
         }

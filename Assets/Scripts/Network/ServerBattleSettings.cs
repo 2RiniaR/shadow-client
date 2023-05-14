@@ -8,6 +8,6 @@ namespace RineaR.Shadow.Network
         ///     バトルで使用するフィールドのID。
         /// </summary>
         [Networked]
-        public int FieldID { get; set; }
+        public string FieldID { get; set; }
     }
 }

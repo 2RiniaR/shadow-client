@@ -8,10 +8,10 @@ namespace RineaR.Shadow.Master
     {
         UniTask FetchAsync(CancellationToken cancellationToken = default);
         IEnumerable<FigureSetting> GetFigures();
-        FigureSetting GetFigureByID(int id);
+        FigureSetting GetFigureByID(string id);
         IEnumerable<CardSetting> GetCards();
-        CardSetting GetCardByID(int id);
+        CardSetting GetCardByID(string id);
         IEnumerable<FieldSetting> GetFields();
-        FieldSetting GetFieldByID(int id);
+        FieldSetting GetFieldByID(string id);
     }
 }

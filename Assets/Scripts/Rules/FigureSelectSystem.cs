@@ -72,7 +72,7 @@ namespace RineaR.Shadow.Rules
                 return;
             }
 
-            Connector.Client.BattleSettings.SetFigures(Selections.Select(figure => figure!.id).ToArray());
+            Connector.Client.BattleSettings.SetFigures(Selections.Select(figure => figure!.ID).ToArray());
         }
     }
 }

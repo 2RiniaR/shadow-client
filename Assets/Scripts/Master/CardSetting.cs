@@ -1,11 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace RineaR.Shadow.Master
 {
     [Serializable]
     public class CardSetting
     {
-        public int id;
-        public string name;
+        [field: SerializeField] public string ID { get; set; }
+        [field: SerializeField] public string Name { get; set; }
     }
 }

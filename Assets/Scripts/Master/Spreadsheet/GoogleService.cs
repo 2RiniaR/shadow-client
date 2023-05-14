@@ -1,11 +1,9 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using UnityEngine;
 
-namespace RineaR.Shadow.Spreadsheet
+namespace RineaR.Shadow.Master.Spreadsheet
 {
     [CreateAssetMenu(menuName = ProjectConstants.CreateAssetMenuFolder + "/Google Service")]
     public class GoogleService : ScriptableObject

@@ -25,7 +25,7 @@ namespace RineaR.Shadow.Views
         public void Initialize()
         {
             submit.OnClickAsObservable().Subscribe(_ => Submit()).AddTo(this);
-            LoopRefresh(destroyCancellationToken).Forget();
+            LoopRefresh(CancellationToken.None).Forget();
         }
 
         private void Submit()
