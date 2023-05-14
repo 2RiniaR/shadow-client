@@ -7,21 +7,20 @@ using UnityEngine;
 
 namespace RineaR.Shadow.Spreadsheet
 {
-    [CreateAssetMenu(menuName = "shadow/Google Service")]
+    [CreateAssetMenu(menuName = ProjectConstants.CreateAssetMenuFolder + "/Google Service")]
     public class GoogleService : ScriptableObject
     {
-        [Header("Credentials")]
-        public string clientId;
+        [field: SerializeField] public string ClientID { get; set; }
 
-        public string clientSecret;
+        [field: SerializeField] public string ClientSecret { get; set; }
 
         public async UniTask<SheetsService> GetSheetsServiceAsync(CancellationToken cancellationToken = default)
         {
             var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                 new ClientSecrets
                 {
-                    ClientId = clientId,
-                    ClientSecret = clientSecret,
+                    ClientId = ClientID,
+                    ClientSecret = ClientSecret,
                 },
                 new[] { SheetsService.Scope.SpreadsheetsReadonly },
                 "user",

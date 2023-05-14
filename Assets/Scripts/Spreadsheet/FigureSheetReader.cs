@@ -18,14 +18,15 @@ namespace RineaR.Shadow.Spreadsheet
 
         public GoogleService GoogleService { get; }
         public string SheetID { get; set; }
+
         public string SheetName { get; set; }
 
         public async UniTask<IEnumerable<FigureSetting>> ReadAsync(CancellationToken cancellationToken = default)
         {
-            var service = await GoogleService.GetSheetsServiceAsync(cancellationToken);
+            var sheetsService = await GoogleService.GetSheetsServiceAsync(cancellationToken);
             var range = $"{SheetName}!A2:E";
 
-            var request = service.Spreadsheets.Values.Get(SheetID, range);
+            var request = sheetsService.Spreadsheets.Values.Get(SheetID, range);
             var response = await request.ExecuteAsync(cancellationToken);
             var rows = response.Values.Skip(1);
             return rows.Select(InterpretRowToItem);
