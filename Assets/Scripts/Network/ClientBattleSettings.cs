@@ -16,11 +16,14 @@ namespace RineaR.Shadow.Network
         /// </summary>
         [Networked]
         [Capacity(4)]
-        public NetworkArray<string> FiguresID => default;
+        public NetworkArray<NetworkString<_16>> FiguresID => default;
 
         public void SetFigures(string[] figuresID)
         {
-            FiguresID.CopyFrom(figuresID, 0, 4);
+            for (var i = 0; i < figuresID.Length; i++)
+            {
+                FiguresID.Set(i, figuresID[i]);
+            }
         }
     }
 }

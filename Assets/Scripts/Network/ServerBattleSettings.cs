@@ -7,7 +7,6 @@ namespace RineaR.Shadow.Network
         /// <summary>
         ///     バトルで使用するフィールドのID。
         /// </summary>
-        [Networked]
-        public string FieldID { get; set; }
+        public NetworkString<_16> FieldID { get; set; }
     }
 }
