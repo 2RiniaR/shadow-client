@@ -3,17 +3,8 @@ using RineaR.Shadow.Battles;
 
 namespace RineaR.Shadow.Network
 {
-    /// <summary>
-    ///     接続中のセッションに対する処理を行うクライアント。セッションへの接続中のみ存在する。
-    /// </summary>
     public class SessionClient : NetworkBehaviour
     {
-        /// <summary>
-        ///     サーバーへの参照。
-        /// </summary>
-        [Networked]
-        public SessionServer Server { get; set; }
-
         /// <summary>
         ///     対戦のプレイヤー。プレイヤーとして対戦に参加している時のみ有効。
         /// </summary>
@@ -30,7 +21,7 @@ namespace RineaR.Shadow.Network
         ///     対戦用の設定。
         /// </summary>
         [Networked]
-        public ClientBattleSettings BattleSettings { get; set; }
+        public BattleClientSettings Settings { get; set; }
 
         /// <summary>
         ///     整理番号。0から順番に入室順に付与される。前の番号のクライアントが退出すると、番号がその分だけ前に移動する。

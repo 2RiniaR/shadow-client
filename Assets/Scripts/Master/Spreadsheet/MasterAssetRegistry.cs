@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RineaR.Shadow.Master.Spreadsheet
 {
-    [CreateAssetMenu(menuName = ProjectConstants.CreateAssetMenuFolder + "/Master Asset Registry")]
+    [CreateAssetMenu(menuName = Constants.CreateAssetMenuFolder + "/Master Asset Registry")]
     public class MasterAssetRegistry : ScriptableObject
     {
         [field: SerializeField] public List<FigureAsset> Figures { get; set; }

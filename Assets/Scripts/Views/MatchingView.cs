@@ -8,7 +8,6 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace RineaR.Shadow.Views
 {
@@ -20,18 +19,20 @@ namespace RineaR.Shadow.Views
         [SerializeField]
         private Button submit;
 
-        [Inject] private SessionConnector Connector { get; set; }
+        public Session Session { get; set; }
+
+        public IObservable<Unit> OnMemberConfirmed
+        {
+            get
+            {
+                if (submit) return submit.OnClickAsObservable().First().AsUnitObservable();
+                return Observable.Never<Unit>();
+            }
+        }
 
         public void Initialize()
         {
-            submit.OnClickAsObservable().Subscribe(_ => Submit()).AddTo(this);
-            LoopRefresh(CancellationToken.None).Forget();
-        }
-
-        private void Submit()
-        {
-            if (Connector.Client == null) return;
-            Connector.Client.Server.PhaseName = SessionPhaseName.FigureSelect;
+            LoopRefresh(destroyCancellationToken).Forget();
         }
 
         private async UniTask LoopRefresh(CancellationToken token = default)
@@ -45,33 +46,32 @@ namespace RineaR.Shadow.Views
 
         public void Refresh()
         {
-            if (Connector.Client)
+            if (Session.LocalClient)
             {
                 for (var i = 0; i < Mathf.Max(4, players.Count); i++)
                 {
                     players[i].text = $"Player {i + 1}: waiting...";
                 }
 
-                var own = Connector.Client;
-                foreach (var client in own.Server.Clients.Where(client => client))
+                foreach (var client in Session.GetAllClients())
                 {
                     players[client.Number].text = $"Player {client.Number + 1}: <JOINED>";
                 }
 
-                players[own.Number].text = $"Player {own.Number + 1}: <YOU>";
+                players[Session.LocalClient.Number].text = $"Player {Session.LocalClient.Number + 1}: <YOU>";
             }
             else
             {
-                foreach (var playerLabel in players)
+                for (var i = 0; i < Mathf.Max(4, players.Count); i++)
                 {
-                    playerLabel.text = "";
+                    players[i].text = $"Player {i + 1}: ---";
                 }
             }
 
             // ゲームを開始可能になったら、開始ボタンを有効化する
-            submit.gameObject.SetActive(Connector.Client != null &&
-                                        Connector.Client.IsHost &&
-                                        Connector.Client.Server.CanStartGame());
+            submit.gameObject.SetActive(Session.LocalClient &&
+                                        Session.HasStateAuthority &&
+                                        Session.Runner.ActivePlayers.Count() >= 2);
         }
     }
 }

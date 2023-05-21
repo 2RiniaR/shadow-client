@@ -1,52 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using UniRx;
-
-namespace RineaR.Shadow.Common.Phases
+﻿namespace RineaR.Shadow.Common.Phases
 {
-    public sealed class PhaseSwitch<TPhaseName> : IDisposable
+    public sealed class PhaseSwitch
     {
-        private readonly CompositeDisposable _compositeDisposable = new();
-        private readonly ReactiveProperty<TPhaseName> _currentPhaseName;
-        private readonly Dictionary<TPhaseName, IPhaseHandler> _phaseHandlers = new();
+        public IPhase Current { get; private set; }
 
-        public PhaseSwitch(TPhaseName initial)
+        public void Set(IPhase phase)
         {
-            _currentPhaseName = new ReactiveProperty<TPhaseName>(initial);
-        }
-
-        public TPhaseName CurrentPhaseName => _currentPhaseName.Value;
-        [CanBeNull] public IPhaseHandler CurrentPhase { get; set; }
-
-        public void Dispose()
-        {
-            _currentPhaseName?.Dispose();
-            _compositeDisposable?.Dispose();
-        }
-
-        public void Set(TPhaseName phaseName)
-        {
-            _currentPhaseName.Value = phaseName;
-        }
-
-        public void RegisterHandler(TPhaseName phaseName, IPhaseHandler phaseHandler)
-        {
-            _phaseHandlers.TryAdd(phaseName, phaseHandler);
-        }
-
-        public void Initialize()
-        {
-            _currentPhaseName.Subscribe(OnPhaseChanged).AddTo(_compositeDisposable);
-        }
-
-        private void OnPhaseChanged(TPhaseName phaseName)
-        {
-            CurrentPhase?.Finish();
-            CurrentPhase = null;
-
-            if (_phaseHandlers.TryGetValue(phaseName, out var handler)) CurrentPhase = handler;
-            CurrentPhase?.Start();
+            Current?.OnExitPhase();
+            Current = phase;
+            Current?.OnEnterPhase();
         }
     }
 }

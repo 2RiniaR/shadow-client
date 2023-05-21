@@ -1,17 +1,16 @@
 ﻿using System;
 using RineaR.Shadow.Common.Phases;
-using RineaR.Shadow.Phases;
 
 namespace RineaR.Shadow.Battles.Phases
 {
-    public class ActPhase : IPhaseHandler
+    public class ActPhase : IPhase
     {
-        public void Start()
+        public void OnEnterPhase()
         {
             throw new NotImplementedException();
         }
 
-        public void Finish()
+        public void OnExitPhase()
         {
             throw new NotImplementedException();
         }

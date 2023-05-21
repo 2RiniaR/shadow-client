@@ -5,14 +5,13 @@ using JetBrains.Annotations;
 using RineaR.Shadow.Master;
 using RineaR.Shadow.Network;
 using UnityEngine;
-using Zenject;
 
 namespace RineaR.Shadow.Rules
 {
     /// <summary>
     ///     フィギュアを選択するシステム。
     /// </summary>
-    public class FigureSelectSystem : MonoBehaviour
+    public class FigureSelectSystem
     {
         /// <summary>
         ///     選択するフィギュアの数。
@@ -37,8 +36,8 @@ namespace RineaR.Shadow.Rules
         [ItemCanBeNull]
         public ReadOnlyCollection<FigureSetting> Selections => new(_selections);
 
-        [Inject] private SessionConnector Connector { get; set; }
-        [Inject] private IMasterRepository Master { get; set; }
+        public Session Session { get; set; }
+        public IMasterRepository Master { get; set; }
 
         public void Initialize()
         {
@@ -66,13 +65,13 @@ namespace RineaR.Shadow.Rules
                 return;
             }
 
-            if (!Connector.Client)
+            if (!Session.LocalClient)
             {
                 Debug.LogWarning($"{typeof(SessionClient)} が存在しません。");
                 return;
             }
 
-            Connector.Client.BattleSettings.SetFigures(Selections.Select(figure => figure!.ID).ToArray());
+            Session.LocalClient.Settings.SetFigures(Selections.Select(figure => figure!.ID).ToArray());
         }
     }
 }

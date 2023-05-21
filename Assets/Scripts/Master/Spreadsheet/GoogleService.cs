@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RineaR.Shadow.Master.Spreadsheet
 {
-    [CreateAssetMenu(menuName = ProjectConstants.CreateAssetMenuFolder + "/Google Service")]
+    [CreateAssetMenu(menuName = Constants.CreateAssetMenuFolder + "/Google Service")]
     public class GoogleService : ScriptableObject
     {
         [field: SerializeField] public string ClientID { get; set; }

@@ -2,7 +2,7 @@
 
 namespace RineaR.Shadow.Network
 {
-    public struct ServerBattleSettings : INetworkStruct
+    public struct BattleSettings : INetworkStruct
     {
         /// <summary>
         ///     バトルで使用するフィールドのID。

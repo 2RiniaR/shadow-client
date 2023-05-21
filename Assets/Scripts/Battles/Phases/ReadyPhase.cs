@@ -2,13 +2,13 @@
 
 namespace RineaR.Shadow.Battles.Phases
 {
-    public class ReadyPhase : IPhaseHandler
+    public class ReadyPhase : IPhase
     {
-        public void Start()
+        public void OnEnterPhase()
         {
         }
 
-        public void Finish()
+        public void OnExitPhase()
         {
         }
     }

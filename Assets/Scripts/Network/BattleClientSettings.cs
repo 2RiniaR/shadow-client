@@ -2,14 +2,13 @@
 
 namespace RineaR.Shadow.Network
 {
-    public struct ClientBattleSettings : INetworkStruct
+    public struct BattleClientSettings : INetworkStruct
     {
         /// <summary>
         ///     プレイヤーとしてバトルに参加するかどうか。
-        ///     trueの場合はプレイヤー、falseの場合は観戦者として参加する。
         /// </summary>
         [Networked]
-        public bool JoinAsPlayer { get; set; }
+        public BattleClientRole Role { get; set; }
 
         /// <summary>
         ///     バトルで使用するフィギュアのID。

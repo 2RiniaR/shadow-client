@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RineaR.Shadow.Master.Spreadsheet
 {
-    [CreateAssetMenu(menuName = ProjectConstants.CreateAssetMenuFolder + "/Master Spreadsheet")]
+    [CreateAssetMenu(menuName = Constants.CreateAssetMenuFolder + "/Master Spreadsheet")]
     public class MasterSpreadsheet : ScriptableObject, IMasterRepository
     {
         [field: SerializeField] public GoogleService GoogleService { get; set; }
@@ -16,9 +16,9 @@ namespace RineaR.Shadow.Master.Spreadsheet
         [field: SerializeField] public string CardSheetName { get; set; }
         [field: SerializeField] public string FieldSheetName { get; set; }
 
-        private Dictionary<string, CardSetting> _cards;
-        private Dictionary<string, FieldSetting> _fields;
-        private Dictionary<string, FigureSetting> _figures;
+        private readonly Dictionary<string, CardSetting> _cards = new();
+        private readonly Dictionary<string, FieldSetting> _fields = new();
+        private readonly Dictionary<string, FigureSetting> _figures = new();
 
         public IEnumerable<FigureSetting> GetFigures()
         {

@@ -4,7 +4,6 @@ using Fusion;
 using RineaR.Shadow.Battles.Fields;
 using RineaR.Shadow.Battles.Phases;
 using RineaR.Shadow.Common.Phases;
-using UniRx;
 
 namespace RineaR.Shadow.Battles
 {
@@ -39,7 +38,7 @@ namespace RineaR.Shadow.Battles
         [Networked]
         public int Turn { get; set; } = 1;
 
-        public PhaseSwitch<BattlePhaseName> PhaseSwitch { get; } = new(BattlePhaseName.NotStarted);
+        public PhaseSwitch Phases { get; private set; }
 
         public ReadyPhase ReadyPhase { get; } = new();
         public OperatePhase OperatePhase { get; } = new();
@@ -48,14 +47,8 @@ namespace RineaR.Shadow.Battles
 
         public void Initialize()
         {
-            PhaseSwitch.RegisterHandler(BattlePhaseName.Ready, ReadyPhase);
-            PhaseSwitch.RegisterHandler(BattlePhaseName.Operate, OperatePhase);
-            PhaseSwitch.RegisterHandler(BattlePhaseName.Act, ActPhase);
-            PhaseSwitch.RegisterHandler(BattlePhaseName.GameSet, GameSetPhase);
-            PhaseSwitch.Initialize();
-            PhaseSwitch.AddTo(this);
-
-            PhaseSwitch.Set(BattlePhaseName.Ready);
+            Phases = new PhaseSwitch();
+            Phases.Set(ReadyPhase);
         }
 
         public void Join(BattlePlayer player)

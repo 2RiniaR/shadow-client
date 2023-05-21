@@ -1,8 +1,8 @@
 ﻿namespace RineaR.Shadow.Network
 {
-    public enum SessionPhaseName
+    public enum SessionState
     {
-        Initial,
+        None,
         Matching,
         FigureSelect,
         Battle,

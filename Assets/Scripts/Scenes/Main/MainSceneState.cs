@@ -1,6 +1,6 @@
-﻿namespace RineaR.Shadow.Phases
+﻿namespace RineaR.Shadow.Scenes.Main
 {
-    public enum AppPhaseName
+    public enum MainSceneState
     {
         None,
         Join,

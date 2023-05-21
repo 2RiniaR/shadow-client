@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using RineaR.Shadow.Rules;
 using UniRx;
 using UnityEngine;
@@ -8,7 +7,6 @@ using UnityEngine.UI;
 
 namespace RineaR.Shadow.Views
 {
-    [RequireComponent(typeof(FigureSelectSystem))]
     public class FigureSelectView : MonoBehaviour
     {
         [SerializeField]
@@ -34,13 +32,10 @@ namespace RineaR.Shadow.Views
 
         private int? _currentSlot;
 
-        public FigureSelectSystem System { get; private set; }
+        public FigureSelectSystem System { get; set; }
 
         public void Initialize()
         {
-            System = GetComponent<FigureSelectSystem>() ?? throw new NullReferenceException();
-            System.Initialize();
-
             submit.OnClickAsObservable()
                 .Subscribe(_ => System.Submit())
                 .AddTo(this);
