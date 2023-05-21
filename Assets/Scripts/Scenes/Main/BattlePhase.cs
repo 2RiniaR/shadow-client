@@ -26,22 +26,22 @@ namespace RineaR.Shadow.Scenes.Main
             Battle = Session.Runner.Spawn(Scene.BattlePrefab);
 
             // フィールドを生成する
-            var fieldPrefab = Master.GetFieldByID(Session.BattleSettings.FieldID.Value).Field;
+            var fieldPrefab = Master.GetFieldByID(Session.FieldID.Value).Field;
             var field = Session.Runner.Spawn(fieldPrefab);
             Battle.Use(field);
 
             // プレイヤーを生成する
             foreach (var client in Session.GetAllClients())
             {
-                switch (client.Settings.Role)
+                switch (client.Role)
                 {
-                    case BattleClientRole.None:
+                    case SessionClientRole.None:
                         break;
-                    case BattleClientRole.Player:
+                    case SessionClientRole.Player:
                         var player = Session.Runner.Spawn(Scene.PlayerPrefab);
                         Battle.Join(player);
                         break;
-                    case BattleClientRole.Audience:
+                    case SessionClientRole.Audience:
                         var audience = Session.Runner.Spawn(Scene.AudiencePrefab);
                         Battle.Join(audience);
                         break;

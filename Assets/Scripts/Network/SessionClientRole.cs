@@ -1,6 +1,6 @@
 ﻿namespace RineaR.Shadow.Network
 {
-    public enum BattleClientRole
+    public enum SessionClientRole
     {
         None,
         Player,

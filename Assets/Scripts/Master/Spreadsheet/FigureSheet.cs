@@ -30,7 +30,7 @@ namespace RineaR.Shadow.Master.Spreadsheet
 
             var request = sheetsService.Spreadsheets.Values.Get(SheetID, range);
             var response = await request.ExecuteAsync(cancellationToken);
-            var rows = response.Values.Skip(1);
+            var rows = response.Values;
             return rows.Select(InterpretRowToItem);
         }
 

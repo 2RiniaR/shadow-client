@@ -34,10 +34,7 @@ namespace RineaR.Shadow.Scenes.Main
                     view.Session = Scene.Session;
                     view.Initialize();
                     view.OnMemberConfirmed
-                        .Subscribe(_ =>
-                        {
-                            if (Scene.Session.HasStateAuthority) Scene.Session.State = SessionState.FigureSelect;
-                        })
+                        .Subscribe(_ => Scene.Session.RPC_ConfirmPlayers())
                         .AddTo(_disposable);
                 });
 

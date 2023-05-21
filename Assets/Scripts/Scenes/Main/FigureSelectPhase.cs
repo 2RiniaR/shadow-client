@@ -1,7 +1,10 @@
-﻿using RineaR.Shadow.Common.Phases;
+﻿using System.Linq;
+using RineaR.Shadow.Common.Phases;
+using RineaR.Shadow.Network;
 using RineaR.Shadow.Rules;
 using RineaR.Shadow.Views;
 using UniRx;
+using UnityEngine;
 
 namespace RineaR.Shadow.Scenes.Main
 {
@@ -27,15 +30,31 @@ namespace RineaR.Shadow.Scenes.Main
                 onLoad: x =>
                 {
                     if (_disposable == null || _disposable.IsDisposed) return;
-                    var view = x.page.GetComponent<FigureSelectView>();
-                    view.System = new FigureSelectSystem
+
+                    var system = new FigureSelectSystem { Session = Scene.Session, Master = Scene.Master };
+                    system.Initialize();
+                    system.OnConfirmed.Subscribe(_ =>
                     {
-                        Session = Scene.Session,
-                        Master = Scene.Master,
-                    };
-                    view.System.Initialize();
+                        if (!Scene.Session.LocalClient)
+                        {
+                            Debug.LogWarning("オンラインに接続していません。");
+                            return;
+                        }
+
+                        Scene.Session.LocalClient
+                            .RPC_ConfirmFigures(system.Selections.Select(figure => figure!.ID).ToArray());
+                    }).AddTo(_disposable);
+
+                    var view = x.page.GetComponent<FigureSelectView>();
+                    view.System = system;
                     view.Initialize();
                 });
+
+            Observable.EveryUpdate().Subscribe(_ =>
+            {
+                if (Scene.Session.Runner && Scene.Session.State == SessionState.Battle)
+                    Scene.Phases.Set(Scene.BattlePhase);
+            }).AddTo(_disposable);
         }
 
         public void OnExitPhase()

@@ -153,4 +153,5 @@ crashlytics-build.properties
 
 # Credentials
 /[Aa]ssets/[Ss]ecrets/*
+/[Aa]ssets/[Rr]esources/[Ss]ecrets/*
 

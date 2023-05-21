@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Fusion;
@@ -45,10 +46,9 @@ namespace RineaR.Shadow.Network
         public SessionState State { get; set; } = SessionState.None;
 
         /// <summary>
-        ///     対戦用の設定。
+        ///     バトルで使用するフィールドのID。
         /// </summary>
-        [Networked]
-        public BattleSettings BattleSettings { get; set; }
+        public NetworkString<_16> FieldID { get; set; }
 
         private void Awake()
         {
@@ -109,6 +109,18 @@ namespace RineaR.Shadow.Network
                 Scene = SceneManager.GetActiveScene().buildIndex,
                 SceneManager = localRunner.GetComponent<NetworkSceneManagerDefault>(),
             }).AsUniTask().AttachExternalCancellation(cancellationToken);
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+        public void RPC_ConfirmPlayers()
+        {
+            if (State == SessionState.Matching) State = SessionState.FigureSelect;
+        }
+
+        public override void FixedUpdateNetwork()
+        {
+            if (State == SessionState.FigureSelect && GetAllClients().All(client => client.HasFigureConfirmed))
+                State = SessionState.Battle;
         }
 
         #region 不要なコールバックメソッド

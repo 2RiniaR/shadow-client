@@ -18,17 +18,35 @@ namespace RineaR.Shadow.Network
         public BattleAudience Audience { get; set; }
 
         /// <summary>
-        ///     対戦用の設定。
-        /// </summary>
-        [Networked]
-        public BattleClientSettings Settings { get; set; }
-
-        /// <summary>
         ///     整理番号。0から順番に入室順に付与される。前の番号のクライアントが退出すると、番号がその分だけ前に移動する。
         /// </summary>
         [Networked]
         public int Number { get; set; }
 
-        public bool IsHost => Runner.IsServer;
+        /// <summary>
+        ///     プレイヤーとしてバトルに参加するかどうか。
+        /// </summary>
+        [Networked]
+        public SessionClientRole Role { get; set; }
+
+        /// <summary>
+        ///     バトルで使用するフィギュアのID。
+        /// </summary>
+        [Networked]
+        [Capacity(4)]
+        public NetworkArray<NetworkString<_16>> FiguresID => default;
+
+        [Networked] public bool HasFigureConfirmed { get; set; }
+
+        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        public void RPC_ConfirmFigures(string[] figuresID)
+        {
+            for (var i = 0; i < figuresID.Length; i++)
+            {
+                FiguresID.Set(i, figuresID[i]);
+            }
+
+            HasFigureConfirmed = true;
+        }
     }
 }

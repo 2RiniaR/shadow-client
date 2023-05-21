@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
 using RineaR.Shadow.Master;
 using RineaR.Shadow.Network;
+using UniRx;
 using UnityEngine;
 
 namespace RineaR.Shadow.Rules
@@ -11,7 +13,7 @@ namespace RineaR.Shadow.Rules
     /// <summary>
     ///     フィギュアを選択するシステム。
     /// </summary>
-    public class FigureSelectSystem
+    public class FigureSelectSystem : IDisposable
     {
         /// <summary>
         ///     選択するフィギュアの数。
@@ -20,6 +22,8 @@ namespace RineaR.Shadow.Rules
 
         [ItemNotNull]
         private List<FigureSetting> _entries;
+
+        private AsyncSubject<Unit> _onConfirmed;
 
         [ItemCanBeNull]
         private List<FigureSetting> _selections;
@@ -36,11 +40,19 @@ namespace RineaR.Shadow.Rules
         [ItemCanBeNull]
         public ReadOnlyCollection<FigureSetting> Selections => new(_selections);
 
+        public IObservable<Unit> OnConfirmed => _onConfirmed;
+
         public Session Session { get; set; }
         public IMasterRepository Master { get; set; }
 
+        public void Dispose()
+        {
+            _onConfirmed?.Dispose();
+        }
+
         public void Initialize()
         {
+            _onConfirmed = new AsyncSubject<Unit>();
             _selections =
                 new List<FigureSetting>(Enumerable.Range(0, NumberOfSelection).Select(_ => (FigureSetting)null));
             _entries = new List<FigureSetting>(Master.GetFigures());
@@ -71,7 +83,8 @@ namespace RineaR.Shadow.Rules
                 return;
             }
 
-            Session.LocalClient.Settings.SetFigures(Selections.Select(figure => figure!.ID).ToArray());
+            _onConfirmed.OnNext(Unit.Default);
+            _onConfirmed.OnCompleted();
         }
     }
 }

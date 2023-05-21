@@ -10,22 +10,12 @@ namespace RineaR.Shadow.Master.Spreadsheet
     [CreateAssetMenu(menuName = Constants.CreateAssetMenuFolder + "/Google Service")]
     public class GoogleService : ScriptableObject
     {
-        [field: SerializeField] public string ClientID { get; set; }
-
-        [field: SerializeField] public string ClientSecret { get; set; }
+        [field: SerializeField] public string CredentialPath { get; set; }
 
         public async UniTask<SheetsService> GetSheetsServiceAsync(CancellationToken cancellationToken = default)
         {
-            var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                new ClientSecrets
-                {
-                    ClientId = ClientID,
-                    ClientSecret = ClientSecret,
-                },
-                new[] { SheetsService.Scope.SpreadsheetsReadonly },
-                "user",
-                cancellationToken
-            );
+            var json = await Resources.LoadAsync<TextAsset>(CredentialPath);
+            var credential = GoogleCredential.FromJson(json.ToString());
 
             return new SheetsService(new BaseClientService.Initializer
             {
