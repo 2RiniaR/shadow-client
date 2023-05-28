@@ -7,11 +7,13 @@ namespace RineaR.Shadow.Master
     public interface IMasterRepository
     {
         UniTask FetchAsync(CancellationToken cancellationToken = default);
-        IEnumerable<FigureSetting> GetFigures();
-        FigureSetting GetFigureByID(string id);
-        IEnumerable<CardSetting> GetCards();
-        CardSetting GetCardByID(string id);
-        IEnumerable<FieldSetting> GetFields();
-        FieldSetting GetFieldByID(string id);
+        IEnumerable<FigureData> GetFigures();
+        FigureData GetFigureByID(string id);
+        IEnumerable<CardData> GetCards();
+        CardData GetCardByID(string id);
+        IEnumerable<FieldData> GetFields();
+        FieldData GetFieldByID(string id);
+        IEnumerable<PassiveData> GetPassives();
+        PassiveData GetPassiveByID(string id);
     }
 }

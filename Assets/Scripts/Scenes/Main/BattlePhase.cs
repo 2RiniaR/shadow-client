@@ -14,48 +14,61 @@ namespace RineaR.Shadow.Scenes.Main
             Scene = scene;
         }
 
-        [Inject] public Session Session { get; private set; }
         [Inject] public IMasterRepository Master { get; }
 
         public MainScene Scene { get; }
 
-        public Battle Battle { get; private set; }
-
         public void OnEnterPhase()
         {
-            Battle = Session.Runner.Spawn(Scene.BattlePrefab);
-
-            // フィールドを生成する
-            var fieldPrefab = Master.GetFieldByID(Session.FieldID.Value).Field;
-            var field = Session.Runner.Spawn(fieldPrefab);
-            Battle.Use(field);
-
-            // プレイヤーを生成する
-            foreach (var client in Session.GetAllClients())
+            if (Scene.Session.HasStateAuthority)
             {
-                switch (client.Role)
+                var battle = Scene.Session.Runner.Spawn(Scene.BattlePrefab);
+
+                // フィールドを生成する
+                var fieldPrefab = Master.GetFieldByID(Scene.Session.FieldID.Value).Field;
+                var field = Scene.Session.Runner.Spawn(
+                    fieldPrefab,
+                    onBeforeSpawned: (runner, obj) => { obj.transform.SetParent(battle.transform); }
+                );
+
+                // プレイヤーを生成する
+                foreach (var client in Scene.Session.GetAllClients())
                 {
-                    case SessionClientRole.None:
-                        break;
-                    case SessionClientRole.Player:
-                        var player = Session.Runner.Spawn(Scene.PlayerPrefab);
-                        Battle.Join(player);
-                        break;
-                    case SessionClientRole.Audience:
-                        var audience = Session.Runner.Spawn(Scene.AudiencePrefab);
-                        Battle.Join(audience);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    switch (client.Role)
+                    {
+                        case SessionClientRole.None:
+                            break;
+                        case SessionClientRole.Player:
+                            Scene.Session.Runner.Spawn(
+                                Scene.PlayerPrefab,
+                                inputAuthority: client.Object.InputAuthority,
+                                onBeforeSpawned: (runner, obj) =>
+                                {
+                                    var player = obj.GetComponent<BattlePlayer>();
+                                    player.Battle = battle;
+                                    player.transform.SetParent(battle.transform);
+                                });
+                            break;
+                        case SessionClientRole.Audience:
+                            Scene.Session.Runner.Spawn(
+                                Scene.AudiencePrefab,
+                                inputAuthority: client.Object.InputAuthority,
+                                onBeforeSpawned: (runner, obj) =>
+                                {
+                                    var player = obj.GetComponent<BattlePlayer>();
+                                    player.Battle = battle;
+                                    player.transform.SetParent(battle.transform);
+                                });
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
-
-            Battle.Initialize();
         }
 
         public void OnExitPhase()
         {
-            Session.Runner.Despawn(Battle.Object);
         }
     }
 }

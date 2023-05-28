@@ -14,6 +14,8 @@ namespace RineaR.Shadow.Battles
         /// </summary>
         public const int MinGamePlayers = 2;
 
+        public const int MaxGamePlayers = 4;
+
         private readonly List<BattleAudience> _audiences = new();
         private readonly List<BattlePlayer> _players = new();
 
@@ -30,7 +32,7 @@ namespace RineaR.Shadow.Battles
         /// <summary>
         ///     使用しているフィールド。
         /// </summary>
-        public Field Field { get; private set; }
+        public Field Field { get; }
 
         /// <summary>
         ///     現在のターン。
@@ -61,12 +63,6 @@ namespace RineaR.Shadow.Battles
         {
             _audiences.Add(audience);
             audience.transform.SetParent(transform);
-        }
-
-        public void Use(Field field)
-        {
-            Field = field;
-            field.transform.SetParent(transform);
         }
     }
 }

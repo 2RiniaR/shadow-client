@@ -48,6 +48,7 @@ namespace RineaR.Shadow.Network
         /// <summary>
         ///     バトルで使用するフィールドのID。
         /// </summary>
+        [Networked]
         public NetworkString<_16> FieldID { get; set; }
 
         private void Awake()
@@ -58,28 +59,37 @@ namespace RineaR.Shadow.Network
 
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
-            if (!runner.IsServer) return;
-
-            runner.Spawn(clientPrefab, inputAuthority: player, onBeforeSpawned: (runner, obj) =>
+            if (HasStateAuthority)
             {
-                var client = obj.GetComponent<SessionClient>();
-                client.Number = _clients.Count;
-                _clients.Add(player, client);
-                runner.SetPlayerObject(player, client.Object);
-            });
+                runner.Spawn(clientPrefab, inputAuthority: player, onBeforeSpawned: (runner, obj) =>
+                {
+                    var client = obj.GetComponent<SessionClient>();
+                    client.Number = _clients.Count;
+                    _clients.Add(player, client);
+                    runner.SetPlayerObject(player, client.Object);
+                });
+            }
         }
 
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
-            if (!_clients.TryGetValue(player, out var leftClient)) return;
-
-            foreach (var (_, client) in _clients)
+            if (HasStateAuthority)
             {
-                if (client.Number > leftClient.Number) client.Number--;
-            }
+                if (!_clients.TryGetValue(player, out var leftClient)) return;
 
-            runner.Despawn(leftClient.Object);
-            _clients.Remove(player);
+                foreach (var (_, client) in _clients)
+                {
+                    if (client.Number > leftClient.Number) client.Number--;
+                }
+
+                runner.Despawn(leftClient.Object);
+                _clients.Remove(player);
+            }
+        }
+
+        public void OnDisconnectedFromServer(NetworkRunner runner)
+        {
+            runner.Shutdown(shutdownReason: ShutdownReason.Ok);
         }
 
         public override void Spawned()
@@ -142,11 +152,6 @@ namespace RineaR.Shadow.Network
 
         // ReSharper disable once Unity.IncorrectMethodSignature
         public void OnConnectedToServer(NetworkRunner runner)
-        {
-            // do nothing
-        }
-
-        public void OnDisconnectedFromServer(NetworkRunner runner)
         {
             // do nothing
         }

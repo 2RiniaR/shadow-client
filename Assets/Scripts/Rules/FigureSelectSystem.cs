@@ -21,24 +21,24 @@ namespace RineaR.Shadow.Rules
         public const int NumberOfSelection = 4;
 
         [ItemNotNull]
-        private List<FigureSetting> _entries;
+        private List<FigureData> _entries;
 
         private AsyncSubject<Unit> _onConfirmed;
 
         [ItemCanBeNull]
-        private List<FigureSetting> _selections;
+        private List<FigureData> _selections;
 
         /// <summary>
         ///     選択可能なフィギュア。
         /// </summary>
         [ItemNotNull]
-        public ReadOnlyCollection<FigureSetting> Entries => new(_entries);
+        public ReadOnlyCollection<FigureData> Entries => new(_entries);
 
         /// <summary>
         ///     選択されたフィギュア。
         /// </summary>
         [ItemCanBeNull]
-        public ReadOnlyCollection<FigureSetting> Selections => new(_selections);
+        public ReadOnlyCollection<FigureData> Selections => new(_selections);
 
         public IObservable<Unit> OnConfirmed => _onConfirmed;
 
@@ -54,11 +54,11 @@ namespace RineaR.Shadow.Rules
         {
             _onConfirmed = new AsyncSubject<Unit>();
             _selections =
-                new List<FigureSetting>(Enumerable.Range(0, NumberOfSelection).Select(_ => (FigureSetting)null));
-            _entries = new List<FigureSetting>(Master.GetFigures());
+                new List<FigureData>(Enumerable.Range(0, NumberOfSelection).Select(_ => (FigureData)null));
+            _entries = new List<FigureData>(Master.GetFigures());
         }
 
-        public void SetSelection(int slot, [CanBeNull] FigureSetting entry)
+        public void SetSelection(int slot, [CanBeNull] FigureData entry)
         {
             if (slot is < 0 or >= NumberOfSelection) return;
             _selections[slot] = entry;

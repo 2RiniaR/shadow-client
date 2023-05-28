@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500f187d9f6543b78649defa30553dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterSpreadsheet: {fileID: 11400000, guid: eca4594c6784c4c4bbcf97a429223d68, type: 2}
+  master: {fileID: 11400000, guid: 82d99eb0f0e85de47b0c42f18c6b401f, type: 2}
 --- !u!114 &1100542315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,9 +546,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2909709600444bf3a3f87e349bf88144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlayerPrefab>k__BackingField: {fileID: 0}
-  <AudiencePrefab>k__BackingField: {fileID: 0}
-  <BattlePrefab>k__BackingField: {fileID: 0}
+  <PlayerPrefab>k__BackingField: {fileID: 4547337180869047900, guid: 01415e6239aa32c498b5f1227c3837ab, type: 3}
+  <AudiencePrefab>k__BackingField: {fileID: 6220508166695053251, guid: 87ccac4b40b2bd74694193adac7252bb, type: 3}
+  <BattlePrefab>k__BackingField: {fileID: 6594914087439909483, guid: 0d12ae3bed6c12648bd292611d4c7e5c, type: 3}
   <Session>k__BackingField: {fileID: 1120864328}
   <PageContainer>k__BackingField: {fileID: 1984225596}
 --- !u!1 &1120864327
@@ -586,6 +586,10 @@ MonoBehaviour:
   clientPrefab: {fileID: -1551169125751902273, guid: 1c79dbe399a4bd34dac104cd8eec80e1, type: 3}
   localRunner: {fileID: 1185050651}
   _State: 0
+  _FieldID:
+    _length: 0
+    _data:
+      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!4 &1120864330
 Transform:
   m_ObjectHideFlags: 0

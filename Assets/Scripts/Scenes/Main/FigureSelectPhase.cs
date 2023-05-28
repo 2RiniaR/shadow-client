@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Cysharp.Threading.Tasks;
 using RineaR.Shadow.Common.Phases;
 using RineaR.Shadow.Network;
 using RineaR.Shadow.Rules;
@@ -22,10 +23,12 @@ namespace RineaR.Shadow.Scenes.Main
         public async void OnEnterPhase()
         {
             _disposable = new CompositeDisposable();
+            await UniTask.WaitWhile(() => Scene.PageContainer.IsInTransition);
 
             Scene.PageContainer.Push("Pages/Loading Page", true, false);
             await Scene.Master.FetchAsync();
 
+            await UniTask.WaitWhile(() => Scene.PageContainer.IsInTransition);
             Scene.PageContainer.Push("Pages/Figure Select Page", true, false,
                 onLoad: x =>
                 {
@@ -42,7 +45,7 @@ namespace RineaR.Shadow.Scenes.Main
                         }
 
                         Scene.Session.LocalClient
-                            .RPC_ConfirmFigures(system.Selections.Select(figure => figure!.ID).ToArray());
+                            .RPC_ConfirmFigures(system.Selections.Select(figure => figure!.name).ToArray());
                     }).AddTo(_disposable);
 
                     var view = x.page.GetComponent<FigureSelectView>();

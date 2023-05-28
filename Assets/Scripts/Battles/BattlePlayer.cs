@@ -10,6 +10,8 @@ namespace RineaR.Shadow.Battles
     /// </summary>
     public class BattlePlayer : NetworkBehaviour
     {
+        [Networked] public Battle Battle { get; set; }
+
         public List<Figure> Figures { get; } = new();
         public List<Card> Cards { get; } = new();
     }
