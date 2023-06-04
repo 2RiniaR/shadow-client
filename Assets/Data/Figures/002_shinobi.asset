@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53db2cab61c2462381d0868b779cbfd8, type: 3}
+  m_Name: 002_shinobi
+  m_EditorClassIdentifier: 
+  <Neutral>k__BackingField:
+    <DisplayName>k__BackingField: "\u30B7\u30CE\u30D3"
+    <Hp>k__BackingField: 50
+    <Attack>k__BackingField: 8
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField: []
+    <Passives>k__BackingField:
+    - {fileID: 11400000, guid: de9a91583d8b2074ab2942eef55b34f4, type: 2}
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 21300000, guid: 91157cf46dd61114293609e441b6ce1e, type: 3}
+      <Down>k__BackingField: {fileID: 21300000, guid: 637fd653d3885cb4a8f81a65f8ca5b37, type: 3}
+      <Left>k__BackingField: {fileID: 21300000, guid: 44f9ae62aa401f240abcd27fb96bd68d, type: 3}
+      <Right>k__BackingField: {fileID: 21300000, guid: 9df703bd2614a79468462bb8ee3296a5, type: 3}
+  <Charmed>k__BackingField:
+    <DisplayName>k__BackingField: "\u30AB\u30AF\u30EC\u30DF\u30B7\u30CE\u30D3"
+    <Hp>k__BackingField: 100
+    <Attack>k__BackingField: 8
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField: []
+    <Passives>k__BackingField:
+    - {fileID: 11400000, guid: de9a91583d8b2074ab2942eef55b34f4, type: 2}
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 0}
+      <Down>k__BackingField: {fileID: 0}
+      <Left>k__BackingField: {fileID: 0}
+      <Right>k__BackingField: {fileID: 0}
+  <Broken>k__BackingField:
+    <DisplayName>k__BackingField: "\u30B8\u30A7\u30CE\u30B5\u30A4\u30C9"
+    <Hp>k__BackingField: 50
+    <Attack>k__BackingField: 8
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField: []
+    <Passives>k__BackingField:
+    - {fileID: 11400000, guid: de9a91583d8b2074ab2942eef55b34f4, type: 2}
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 0}
+      <Down>k__BackingField: {fileID: 0}
+      <Left>k__BackingField: {fileID: 0}
+      <Right>k__BackingField: {fileID: 0}

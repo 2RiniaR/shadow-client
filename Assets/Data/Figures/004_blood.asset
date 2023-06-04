@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53db2cab61c2462381d0868b779cbfd8, type: 3}
+  m_Name: 004_blood
+  m_EditorClassIdentifier: 
+  <Neutral>k__BackingField:
+    <DisplayName>k__BackingField: "\u30D6\u30E9\u30C3\u30C9"
+    <Hp>k__BackingField: 40
+    <Attack>k__BackingField: 6
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField:
+    - {fileID: 11400000, guid: 572244956d2dc2a47b24b518144cbfe8, type: 2}
+    <Passives>k__BackingField: []
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 21300000, guid: fd8581d925db6b04d87463208579507d, type: 3}
+      <Down>k__BackingField: {fileID: 21300000, guid: f02ac0044cc33d8479c80f57b6bc256b, type: 3}
+      <Left>k__BackingField: {fileID: 21300000, guid: 2dad6367fd195e44bb437af12782c82e, type: 3}
+      <Right>k__BackingField: {fileID: 21300000, guid: 3a425bc885b435744be3c1b01aec8d5a, type: 3}
+  <Charmed>k__BackingField:
+    <DisplayName>k__BackingField: "\u30A2\u30CB\u30DE\u30D6\u30E9\u30C3\u30C9"
+    <Hp>k__BackingField: 80
+    <Attack>k__BackingField: 6
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField:
+    - {fileID: 11400000, guid: 572244956d2dc2a47b24b518144cbfe8, type: 2}
+    - {fileID: 11400000, guid: 14eeb30a0a9dccc43b22cc48249dce26, type: 2}
+    <Passives>k__BackingField: []
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 0}
+      <Down>k__BackingField: {fileID: 0}
+      <Left>k__BackingField: {fileID: 0}
+      <Right>k__BackingField: {fileID: 0}
+  <Broken>k__BackingField:
+    <DisplayName>k__BackingField: "\u30E1\u30A2\u30D6\u30E9\u30C3\u30C9"
+    <Hp>k__BackingField: 40
+    <Attack>k__BackingField: 6
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField:
+    - {fileID: 11400000, guid: 572244956d2dc2a47b24b518144cbfe8, type: 2}
+    - {fileID: 11400000, guid: 4fb3fd3172f43c4448e4bc0d968b66d9, type: 2}
+    <Passives>k__BackingField: []
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 0}
+      <Down>k__BackingField: {fileID: 0}
+      <Left>k__BackingField: {fileID: 0}
+      <Right>k__BackingField: {fileID: 0}

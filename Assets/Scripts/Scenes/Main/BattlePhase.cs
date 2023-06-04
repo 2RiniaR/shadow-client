@@ -1,9 +1,10 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using RineaR.Shadow.Battles;
+using RineaR.Shadow.Battles.Fields;
 using RineaR.Shadow.Common.Phases;
-using RineaR.Shadow.Master;
 using RineaR.Shadow.Network;
-using Zenject;
+using UnityEngine;
 
 namespace RineaR.Shadow.Scenes.Main
 {
@@ -14,21 +15,25 @@ namespace RineaR.Shadow.Scenes.Main
             Scene = scene;
         }
 
-        [Inject] public IMasterRepository Master { get; }
-
         public MainScene Scene { get; }
 
-        public void OnEnterPhase()
+        public async void OnEnterPhase()
         {
             if (Scene.Session.HasStateAuthority)
             {
+                var fieldRef = Scene.Master.GetFieldByID("001_marble-space").Field;
+                var fieldPrefab = await fieldRef.LoadAssetAsync().ToUniTask();
+
                 var battle = Scene.Session.Runner.Spawn(Scene.BattlePrefab);
 
                 // フィールドを生成する
-                var fieldPrefab = Master.GetFieldByID(Scene.Session.FieldID.Value).Field;
-                var field = Scene.Session.Runner.Spawn(
+                Scene.Session.Runner.Spawn(
                     fieldPrefab,
-                    onBeforeSpawned: (runner, obj) => { obj.transform.SetParent(battle.transform); }
+                    onBeforeSpawned: (runner, obj) =>
+                    {
+                        var field = obj.GetComponent<Field>();
+                        field.Battle = battle;
+                    }
                 );
 
                 // プレイヤーを生成する
@@ -46,7 +51,6 @@ namespace RineaR.Shadow.Scenes.Main
                                 {
                                     var player = obj.GetComponent<BattlePlayer>();
                                     player.Battle = battle;
-                                    player.transform.SetParent(battle.transform);
                                 });
                             break;
                         case SessionClientRole.Audience:
@@ -55,15 +59,16 @@ namespace RineaR.Shadow.Scenes.Main
                                 inputAuthority: client.Object.InputAuthority,
                                 onBeforeSpawned: (runner, obj) =>
                                 {
-                                    var player = obj.GetComponent<BattlePlayer>();
-                                    player.Battle = battle;
-                                    player.transform.SetParent(battle.transform);
+                                    var audience = obj.GetComponent<BattleAudience>();
+                                    audience.Battle = battle;
                                 });
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
                 }
+
+                Debug.Log("complete!");
             }
         }
 

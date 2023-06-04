@@ -1,5 +1,6 @@
 ﻿using Fusion;
 using RineaR.Shadow.Battles.Fields;
+using RineaR.Shadow.Master;
 using UnityEngine;
 
 namespace RineaR.Shadow.Battles.Figures
@@ -10,6 +11,8 @@ namespace RineaR.Shadow.Battles.Figures
     /// </summary>
     public class Figure : NetworkBehaviour
     {
+        [field: SerializeField] public FigureData Data { get; set; }
+
         /// <summary>
         ///     所属しているプレイヤー。
         /// </summary>
@@ -20,8 +23,7 @@ namespace RineaR.Shadow.Battles.Figures
         ///     HP。
         /// </summary>
         [Networked]
-        // ReSharper disable once InconsistentNaming
-        public int HP { get; set; }
+        public int Hp { get; set; }
 
         /// <summary>
         ///     メド。

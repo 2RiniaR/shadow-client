@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53db2cab61c2462381d0868b779cbfd8, type: 3}
+  m_Name: 007_wing
+  m_EditorClassIdentifier: 
+  <Neutral>k__BackingField:
+    <DisplayName>k__BackingField: "\u30A6\u30A3\u30F3\u30B0"
+    <Hp>k__BackingField: 50
+    <Attack>k__BackingField: 8
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField: []
+    <Passives>k__BackingField:
+    - {fileID: 11400000, guid: d53dda781c47f6947b85e2cac7fd13d0, type: 2}
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 21300000, guid: 53aa6b11845509a488ceb6fc38578dea, type: 3}
+      <Down>k__BackingField: {fileID: 21300000, guid: d66237223d316a24387ed63682e3ad42, type: 3}
+      <Left>k__BackingField: {fileID: 21300000, guid: 23f4ee9c62baf754b8481f2f0f89f6fd, type: 3}
+      <Right>k__BackingField: {fileID: 21300000, guid: 253e630d79dc3ae4e9ab993f1c3786d6, type: 3}
+  <Charmed>k__BackingField:
+    <DisplayName>k__BackingField: "\u30CF\u30F3\u30BF\u30FC\u30A6\u30A3\u30F3\u30B0"
+    <Hp>k__BackingField: 100
+    <Attack>k__BackingField: 8
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField:
+    - {fileID: 11400000, guid: e8152558949495541ba9a739f27d0be3, type: 2}
+    <Passives>k__BackingField:
+    - {fileID: 11400000, guid: d53dda781c47f6947b85e2cac7fd13d0, type: 2}
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 0}
+      <Down>k__BackingField: {fileID: 0}
+      <Left>k__BackingField: {fileID: 0}
+      <Right>k__BackingField: {fileID: 0}
+  <Broken>k__BackingField:
+    <DisplayName>k__BackingField: "\u30AB\u30E9\u30DF\u30C6\u30A3\u30A6\u30A3\u30F3\u30B0"
+    <Hp>k__BackingField: 50
+    <Attack>k__BackingField: 8
+    <Description>k__BackingField: 
+    <OptionCards>k__BackingField:
+    - {fileID: 11400000, guid: 8641562117464634ca419bd17a588d1e, type: 2}
+    <Passives>k__BackingField:
+    - {fileID: 11400000, guid: d53dda781c47f6947b85e2cac7fd13d0, type: 2}
+    <Face>k__BackingField:
+      <Up>k__BackingField: {fileID: 0}
+      <Down>k__BackingField: {fileID: 0}
+      <Left>k__BackingField: {fileID: 0}
+      <Right>k__BackingField: {fileID: 0}

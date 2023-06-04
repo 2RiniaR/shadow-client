@@ -29,6 +29,7 @@ namespace RineaR.Shadow.Scenes.Main
             await Scene.Master.FetchAsync();
 
             await UniTask.WaitWhile(() => Scene.PageContainer.IsInTransition);
+
             Scene.PageContainer.Push("Pages/Figure Select Page", true, false,
                 onLoad: x =>
                 {

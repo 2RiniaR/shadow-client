@@ -124,7 +124,14 @@ namespace RineaR.Shadow.Network
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         public void RPC_ConfirmPlayers()
         {
-            if (State == SessionState.Matching) State = SessionState.FigureSelect;
+            if (State != SessionState.Matching) return;
+
+            foreach (var client in GetAllClients())
+            {
+                client.Role = SessionClientRole.Player;
+            }
+
+            State = SessionState.FigureSelect;
         }
 
         public override void FixedUpdateNetwork()

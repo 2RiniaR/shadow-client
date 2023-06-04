@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Fusion;
 using RineaR.Shadow.Battles.Fields;
 using RineaR.Shadow.Battles.Phases;
@@ -14,25 +13,25 @@ namespace RineaR.Shadow.Battles
         /// </summary>
         public const int MinGamePlayers = 2;
 
+        /// <summary>
+        ///     最大のプレイ可能人数。
+        /// </summary>
         public const int MaxGamePlayers = 4;
-
-        private readonly List<BattleAudience> _audiences = new();
-        private readonly List<BattlePlayer> _players = new();
 
         /// <summary>
         ///     参加している観戦者。
         /// </summary>
-        public ReadOnlyCollection<BattleAudience> Audiences => _audiences.AsReadOnly();
+        public List<BattleAudience> Audiences { get; } = new();
 
         /// <summary>
         ///     参加しているプレイヤー。
         /// </summary>
-        public ReadOnlyCollection<BattlePlayer> Players => _players.AsReadOnly();
+        public List<BattlePlayer> Players { get; } = new();
 
         /// <summary>
         ///     使用しているフィールド。
         /// </summary>
-        public Field Field { get; }
+        public Field Field { get; set; }
 
         /// <summary>
         ///     現在のターン。
@@ -51,18 +50,6 @@ namespace RineaR.Shadow.Battles
         {
             Phases = new PhaseSwitch();
             Phases.Set(ReadyPhase);
-        }
-
-        public void Join(BattlePlayer player)
-        {
-            _players.Add(player);
-            player.transform.SetParent(transform);
-        }
-
-        public void Join(BattleAudience audience)
-        {
-            _audiences.Add(audience);
-            audience.transform.SetParent(transform);
         }
     }
 }

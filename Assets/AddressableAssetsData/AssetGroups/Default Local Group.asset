@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: fff1f6154a390124fb2b1ef92fbff756
+  m_SerializeEntries:
+  - m_GUID: d4e5d54289bc14349a776d1e9a9368e9
+    m_Address: Sprites/Figures
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1170995bce081d34890ab9d1f6501522
+    m_Address: Data/Cards
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Cards
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c5832f0c2918a4448a956ca70edb00a8
+    m_Address: Data/Fields
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Fields
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbe38a201550d9641935a2c4fd18f240
+    m_Address: Data/Figures
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Figures
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 820cb3dc6ec41944ea8218c2733a199c
+    m_Address: Data/Passives
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Passives
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4bf7b033900fcbf48a8c7b5b2fa51125
+    m_Address: Prefabs/Battle/Fields
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 123c5e12638806141826f3bb20a8aee5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0371f1f94d81ba745a87dbe9a4183f4f, type: 2}
+    - {fileID: 11400000, guid: 6322af3e4f01c1e448b129236607092a, type: 2}

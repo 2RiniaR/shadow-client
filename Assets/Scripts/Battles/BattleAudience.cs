@@ -7,5 +7,15 @@ namespace RineaR.Shadow.Battles
     /// </summary>
     public class BattleAudience : NetworkBehaviour
     {
+        [Networked] public Battle Battle { get; set; }
+
+        public override void Spawned()
+        {
+            if (Battle)
+            {
+                Battle.Audiences.Add(this);
+                transform.SetParent(Battle.transform);
+            }
+        }
     }
 }

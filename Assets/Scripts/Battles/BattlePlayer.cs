@@ -14,5 +14,14 @@ namespace RineaR.Shadow.Battles
 
         public List<Figure> Figures { get; } = new();
         public List<Card> Cards { get; } = new();
+
+        public override void Spawned()
+        {
+            if (Battle)
+            {
+                Battle.Players.Add(this);
+                transform.SetParent(Battle.transform);
+            }
+        }
     }
 }

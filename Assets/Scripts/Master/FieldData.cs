@@ -1,5 +1,5 @@
-﻿using RineaR.Shadow.Battles.Fields;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace RineaR.Shadow.Master
 {
@@ -12,6 +12,6 @@ namespace RineaR.Shadow.Master
         [field: TextArea]
         public string Description { get; set; }
 
-        [field: SerializeField] public Field Field { get; set; }
+        [field: SerializeField] public AssetReferenceGameObject Field { get; set; }
     }
 }
